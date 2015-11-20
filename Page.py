@@ -35,6 +35,10 @@ class Page:
         self.index_words = index_words
         self.frequency_word = frequency_word
         self.last_id_added = 0
+
+        APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+        self.db_path_meta = os.path.join(APP_ROOT, "pages/"+self.name+'/metadata')
+
         # print("Page " + name + "created")
 
     def update_index(self, post_text, post_frequencies):
@@ -109,7 +113,7 @@ class Page:
         for word, count in frequencies.items():
             english_freq[word] /= count
             #print reverse_stem[word] + ": " + str(english_freq[word])
-            tf_idf = (-1.0)*count/(log(english_freq[word]))
+            tf_idf = (-1.0)*log(count+0.1)/(log(english_freq[word]))
             main_words.append([tf_idf, count, reverse_stem[word], word])
 
         #select just most important words
@@ -189,14 +193,15 @@ class Page:
 
 
     def load(self):
-        path = os.getcwd()+"/pages/"+self.name+'/metadata'
+        path = self.db_path_meta
         tmp_dict = cPickle.load(open(path,'rb'))
         self.__dict__.update(tmp_dict)
 
     def save(self):
-        path = os.getcwd()+"/pages/"+self.name+'/metadata'
+        path = self.db_path_meta
         if not os.path.exists(path):
-            os.makedirs(os.getcwd()+"/pages/"+self.name)
+            APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+            os.makedirs(os.path.join(APP_ROOT, "pages/"+self.name))
             open(path,"w+")
         cPickle.dump(self.__dict__,open(path,'wb'),2)
 

@@ -29,6 +29,7 @@ db.load()
 
 pages = os.listdir("FacebookHistory2/")
 pages = [file for file in pages if file.endswith(".json")]
+pages = ["cnn.json"]
 
 for page_name in pages:
     list_post_obj = getPostFromJSON(page_name)
@@ -38,7 +39,7 @@ for page_name in pages:
     page = db.create_page(page_name, metainfo1)
     print "PAGE NAME:"+ page_name
     #ADDING POST TO A PAGE
-    MAX = 1000
+    MAX = 5000
     if len(list_post_obj) > MAX:
         list_post_obj = list_post_obj[0:MAX]
     for post_obj in list_post_obj:

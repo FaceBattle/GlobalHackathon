@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template, request
+from queryDB import MyQuery
 
 app = Flask(__name__)
 
@@ -10,27 +11,23 @@ def hello_world():
 @app.route('/bias/', methods=['POST'])
 def find_bias():
     word_searched = request.form['word']
+    my_q = MyQuery()
+
+    freq_dict = my_q.get_number_of_posts_for_word(word_searched)
+    page_freq_list = []
+    for key, value in freq_dict.iteritems():
+        page_freq_list.append({
+           "name": key,
+           "size": value
+        })
+
     root_orig = {
          "name": "pages",
-         "children": [
-             {"name": "aljazeera", "size": 3938},
-             {"name": "barackobama", "size": 743},
-             {"name": "bbcnews", "size": 24593},
-             {"name": "berniesanders", "size": 16540},
-             {"name": "CarlyFiorina", "size": 7074},
-             {"name": "cnn", "size": 1302},
-             {"name": "dawndotcom", "size": 24593},
-             {"name": "DonaldTrump", "size": 1302},
-             {"name": "FoxNews", "size": 1302},
-             {"name": "hillaryclinton", "size": 24593},
-             {"name": "nytimes", "size": 1302},
-             {"name": "sydneymorningherald", "size": 4896},
-             {"name": "TMZ", "size": 763}
-         ]
-    };
-
+         "children": page_freq_list
+    }
     return render_template('page.html', word=word_searched, bubble_data=root_orig)
 
 
 if __name__ == '__main__':
-    app.run()
+    print("oi")
+    app.run(debug=True)

@@ -20,13 +20,16 @@ class Post:
         self.main_words = main_words
         self.reverse_stem = reverse_stem
 
+        APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+        self.db_post_path = os.path.join(APP_ROOT, "pages/"+self.page+"/"+str(self.id))
+
     def load(self):
-        path = os.getcwd()+"/pages/"+self.page+"/"+str(self.id)
+        path = self.db_post_path
         tmp_dict = cPickle.load(open(path,'rb'))
         self.__dict__.update(tmp_dict)
 
     def save(self):
-        path = os.getcwd()+"/pages/"+self.page+"/"+str(self.id)
+        path = self.db_post_path
         if not os.path.exists(path):
             open(path,"w+")
         cPickle.dump(self.__dict__,open(path,'wb'),2)
