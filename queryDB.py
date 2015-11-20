@@ -2,6 +2,7 @@ __author__ = 'danielpazinato'
 
 from Database import *
 from nltk.stem.lancaster import LancasterStemmer
+from copy import deepcopy
 
 class MyQuery(object):
     def __init__(self):
@@ -65,7 +66,7 @@ class MyQuery(object):
             # print page.name
             # print page.get_list_post_from_index(word)
             main_words, sentimental = page.page_main_words(word)
-            main_words = main_words[0:40]
+            main_words = main_words[0:50]
             for i in range(len(main_words)):
                main_words[i] = main_words[i][2]
             pages_mains_words[page.name] = set(main_words)
@@ -73,27 +74,30 @@ class MyQuery(object):
 
         mini = 0
         maxi = -100
-        for i in xrange(len(self.list_pages)-1):
+        for i in xrange(len(self.list_pages)):
             name1 = self.list_pages[i].name
             set1 = pages_mains_words[name1]
-            for j in xrange(i+1, len(self.list_pages)):
-                name2 = self.list_pages[j].name
-                set2 = pages_mains_words[name2]
-                for w in set1:
-                    if w in set2:
-                        if result[name1].has_key(name2):
-                            result[name1][name2] += 1
-                        else:
-                            result[name1][name2] = 1
-                        maxi = max(maxi, result[name1][name2])
+            for j in xrange(len(self.list_pages)):
+                if i != j:
+                    name2 = self.list_pages[j].name
+                    set2 = pages_mains_words[name2]
+                    for w in set1:
+                        if w in set2:
+                            if result[name1].has_key(name2):
+                                result[name1][name2] += 1
+                            else:
+                                result[name1][name2] = 1
+                            maxi = max(maxi, result[name1][name2])
 
         maxi = 1.1*maxi
         print maxi
         print result
+        result2 = deepcopy(result)
         for key in result.keys():
             for key2 in result[key]:
                 result[key][key2] = result[key][key2]/maxi
-
-        return result
+                if result[key][key2] < 0.30: result2[key].__delitem__(key2)
+                else: result2[key][key2] = result[key][key2]
+        return result, result2
 
 
