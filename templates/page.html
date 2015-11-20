@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">Github<br></a>
+              <a href="https://github.com/FaceBattle/GlobalHackathon">Github<br></a>
             </li>
           </ul>
         </div>
@@ -70,12 +70,14 @@
       </div>
     </div>
 
+
     <div class="section">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-              <div id="wrapper">
-      <div id="chart">
+            <div id="wrapper">
+            <div id="chart" style="background-image: url({{ url_for('static', filename='images/gato.jpg') }})">
+
 
       <svg width="1000" height="640"><g class="chart" transform="translate(80, -60)">
         <text id="countryLabel" x="0" y="170" style="font-size: 80px; font-weight: bold; fill: #dddddd;"></text>
@@ -143,11 +145,11 @@
               <div class="col-md-12" align="center" id="matchDiv">
               </div>
           </div>
-          <div class="row">
-              <div class="col-md-12" align="center">
-                  <h3>Most related terms</h3>
-              </div>
-          </div>
+{#          <div class="row">#}
+{#              <div class="col-md-12" align="center">#}
+{#                  <h3>Most related terms</h3>#}
+{#              </div>#}
+{#          </div>#}
       <div class="row">
           <div class="col-md-6">
             <div id="wordcloud1" style="width: 100%; height: 400px">
@@ -160,17 +162,11 @@
         </div>
 
         <div class="row">
-              <div class="col-md-12" align="center">
-                  <h3>Positivy Count</h3>
-              </div>
-          </div>
-        <div class="row">
             <div class="col-md-2" align="center"></div>
           <div class="col-md-2" align="center">
               <div id="r11" align="center"></div>
             </div>
-            <div class="col-md-2" align="center"></div>
-            <div class="col-md-2" align="center"></div>
+            <div class="col-md-4" align="center"><h3>Positivy Count</h3></div>
           <div class="col-md-2">
               <div id="r12"></div>
           </div>
@@ -213,6 +209,12 @@
 
     var selected_1;
     var selected_2;
+
+    $('#wordcloud1').jQCloud(words['DonaldTrump']);
+    $('#wordcloud2').jQCloud(words['barackobama']);
+
+    selectButtonFromFirstRow('b12');
+    selectButtonFromSecondRow('b26');
 
     function selectButtonFromFirstRow(id) {
         var value = document.getElementById(id).value;
