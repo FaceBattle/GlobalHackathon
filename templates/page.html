@@ -84,27 +84,20 @@
         <text id="xLabel" x="400" y="670" text-anchor="middle"> Favorability to the subject (in percentage of positiveness of sentiment analysis) </text>
         <text transform="translate(-60, 330)rotate(-90)" id="yLabel" text-anchor="middle">Frequency of posts related to the subject (in number of posts)</text>
 
-          <circle cx="495.07689922279707" cy="281.81818181818164" fill="#393b79" r="12" style="cursor: pointer;"></circle>
-          <circle cx="463.71409723422113" cy="388.96103896103887" fill="#5254a3" r="12" style="cursor: pointer;"></circle>
-          <circle cx="0" cy="80" fill="#6b6ecf" r="12" style="cursor: pointer;"></circle>
-          <circle cx="278.60898674862864" cy="362.98701298701286" fill="#9c9ede" r="12" style="cursor: pointer;"></circle>
-          <circle cx="612.8022905876993" cy="100" fill="#637939" r="12" style="cursor: pointer;"></circle>
-          <circle cx="124.58221442130483" cy="466.8831168831168" fill="#8ca252" r="12" style="cursor: pointer;"></circle>
-          <circle cx="520.0939586645115" cy="275.32467532467535" fill="#b5cf6b" r="12" style="cursor: pointer;"></circle>
-          <circle cx="437.64778748867064" cy="440.9090909090908" fill="#cedb9c" r="12" style="cursor: pointer;"></circle>
-          <circle cx="462.7961154538441" cy="398.7012987012987" fill="#8c6d31" r="12" style="cursor: pointer;"></circle>
-          <circle cx="111.31283949730785" cy="486.3636363636362" fill="#bd9e39" r="12" style="cursor: pointer;"></circle>
-          <circle cx="580.0897294096025" cy="259.09090909090884" fill="#e7ba52" r="12" style="cursor: pointer;"></circle>
-          <circle cx="491.9768343168893" cy="301.2987012987013" fill="#e7cb94" r="12" style="cursor: pointer;"></circle>
-          <circle onmouseover="updateLabel('balao')" cx="780" cy="177.92207792207768" fill="#843c39" r="45" style="cursor: pointer;"></circle>
-
+          {% for key, value in pos_dict.iteritems() %}
+            <svg id="{{ "mySvg" + key }}" width="40" height="40">
+                <defs id="{{ "mdef" + key }}">
+                    <pattern id="{{ "myimage"+key}}" x="0" y="0" height="40" width="40">
+                        <image x="0" y="0" width="40" height="40" xlink:href="{{ url_for('static', filename='icons/' + key + '.png') }}"></image>
+                    </pattern>
+                </defs>
+            </svg>
+            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="23" style="cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
+           {% endfor %}
 
 <g transform="translate(0, 630)" id="xAxis">
-
-
 <path class="domain" d="M20,6V0H780V6"></path></g>
 <g id="yAxis" transform="translate(-10, 0)">
-
             <path class="domain" d="M-6,100H0V600H-6"></path></g></g></svg></div></div>
           </div>
         </div>
@@ -194,7 +187,7 @@
         var value = document.getElementById(id).value;
         document.getElementById("sel1").innerHTML = value;
 
-        $('#wordcloud1').jQCloud(words[value]);
+        $('#wordcloud1').jQCloud('update', words[value]);
         var elements = document.getElementById('l1').children;
         for (var i = 0; i < elements.length; i++) {
             if(elements[i].className.indexOf('disabled') == 0) {
@@ -221,9 +214,8 @@
     function selectButtonFromSecondRow(id) {
         var value = document.getElementById(id).value;
         document.getElementById("sel2").innerHTML = value;
-{#        $('#wordcloud2').empty();#}
 
-        $('#wordcloud2').jQCloud(words[value]);
+        $('#wordcloud2').jQCloud('update', words[value]);
 
         var elements = document.getElementById('l2').children;
         for (var i = 0; i < elements.length; i++) {

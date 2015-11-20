@@ -36,8 +36,16 @@ class MyQuery(object):
 
     def get_number_of_posts_for_word(self, word):
         mydict = {}
+        maxi = - 10
+        mini = 10
+
         for page in self.list_pages:
             mydict[page.name] = len(page.get_list_post_from_index(word))*1.0/page.last_id_added
+            maxi = max(maxi,mydict[page.name])
+            mini = min(mini,mydict[page.name])
+        for key in mydict.keys():
+            mydict[key] = 1.0*(mydict[key] - mini)/(maxi - mini)
+
         return mydict
 
     def equal_words(self, p1, p2):
