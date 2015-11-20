@@ -57,5 +57,7 @@
 
 .radial-svg {
     display: block;
+    weight: 300;
+    height: 150;
     margin: 0 auto;
 }
