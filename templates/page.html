@@ -6,6 +6,8 @@
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='stylesheets/page.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bubbles.js') }}"></script>
 </head>
 
 <body>
@@ -40,36 +42,58 @@
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6"></div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6"></div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12"></div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12"></div>
-        </div>
-      </div>
-    </div>
-  
 
-</body></html>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <div id="bubbleDiv">
+                  <center>
+                <script>
+                make_bubbles({{ bubble_data | safe }}, "{{ url_for('static', filename='icons/') }}")
+                </script>
+                    </center>
+              </div>
+          </div>
+        </div>
+        <div class="row"><div class="col-md-12 text-center">
+              <h2> Frequency </h2>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12"></div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>
