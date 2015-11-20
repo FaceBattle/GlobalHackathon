@@ -48,7 +48,5 @@ def find_bias():
                            word_dict=new_word_dict,
                            matches=matches)
 
-
 if __name__ == '__main__':
-    print("oi")
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False)
