@@ -16,8 +16,9 @@ class Database:
     def get_list_of_pages(self):
         return self.list_of_pages
 
-    def create_page(self, name, metainfo = {}):
-        path = os.getcwd()+'/pages/'+name
+    def create_page(self, name, metainfo):
+        path = os.getcwd()+'/pages/'+ name
+        print(name, path)
         self.list_of_pages.add(name)
         if not os.path.exists(path):
             page = Page(name, metainfo)
