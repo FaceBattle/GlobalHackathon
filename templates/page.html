@@ -16,6 +16,8 @@
     <script src="{{ url_for('static', filename='js/bubbles.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
 </head>
 
 <body>
@@ -39,17 +41,24 @@
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="page-header text-center">
-              <h1> {{ word }}</h1>
+
+
+    <section class="middle" data-stellar-background-ratio="0.4">
+        <div class="content">
+
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="page-header text-center">
+                      <h1> {{ word }}</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
+    </section>
 
     <div class="section">
       <div class="container">
@@ -277,6 +286,7 @@
         start_rp2(pos_dict[value]);
     }
 
+  	$.stellar();
 
 </script>
 
