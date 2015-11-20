@@ -173,7 +173,7 @@ section{
 
 .wrapper{
 	color:#000;
-	text-shadow:none;
+	/*text-shadow:none;*/
 }
 
 .hero{
@@ -187,7 +187,7 @@ section{
 	margin-top:13%;
 }
 .middle{
-	background:url(https://unsplash.imgix.net/photo-1418226970361-9f1f7227d638?q=75&fm=jpg&s=4a5f190c7499eff6f7c77d88d8abf57e);
+	background:url(../news_bg.jpg);
 }
 .lower{
 	background:url(https://unsplash.imgix.net/reserve/URG2BbWQQ9SAcqLuTOLp_BP7A9947.jpg?q=75&fm=jpg&s=604dc379bd8749d90ca2b9c8ec270f63);
