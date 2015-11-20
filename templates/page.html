@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/d3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/radialProgress.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/progress_styles.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" media="screen">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
     <link href="{{ url_for('static', filename='stylesheets/page.css') }}" rel="stylesheet" type="text/css">
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="{{ url_for('static', filename='js/bubbles.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.css') }}">
 </head>
 
 <body>
@@ -78,7 +86,7 @@
 
           <circle cx="495.07689922279707" cy="281.81818181818164" fill="#393b79" r="12" style="cursor: pointer;"></circle>
           <circle cx="463.71409723422113" cy="388.96103896103887" fill="#5254a3" r="12" style="cursor: pointer;"></circle>
-          <circle cx="0" cy="620" fill="#6b6ecf" r="12" style="cursor: pointer;"></circle>
+          <circle cx="0" cy="80" fill="#6b6ecf" r="12" style="cursor: pointer;"></circle>
           <circle cx="278.60898674862864" cy="362.98701298701286" fill="#9c9ede" r="12" style="cursor: pointer;"></circle>
           <circle cx="612.8022905876993" cy="100" fill="#637939" r="12" style="cursor: pointer;"></circle>
           <circle cx="124.58221442130483" cy="466.8831168831168" fill="#8ca252" r="12" style="cursor: pointer;"></circle>
@@ -88,14 +96,11 @@
           <circle cx="111.31283949730785" cy="486.3636363636362" fill="#bd9e39" r="12" style="cursor: pointer;"></circle>
           <circle cx="580.0897294096025" cy="259.09090909090884" fill="#e7ba52" r="12" style="cursor: pointer;"></circle>
           <circle cx="491.9768343168893" cy="301.2987012987013" fill="#e7cb94" r="12" style="cursor: pointer;"></circle>
-          <circle onmouseover="updateLabel('balao')" cx="780" cy="177.92207792207768" fill="#843c39" r="122" style="cursor: pointer;"></circle>
+          <circle onmouseover="updateLabel('balao')" cx="780" cy="177.92207792207768" fill="#843c39" r="45" style="cursor: pointer;"></circle>
 
 
 <g transform="translate(0, 630)" id="xAxis">
 
-{#{% for i in range(8) %}#}
-{#    <g class="tick major" transform="translate( {{ 94.90065422261 + (756.4523759692486 - 94.90065422261) * loop.index0/7 }},0)" style="opacity: 1;"><line y2="6" x2="0"></line><text y="9" x="0" dy=".71em" style="text-anchor: middle;">{{ -0.75 + 0.25*loop.index0}}</text></g>#}
-{#{% endfor %}#}
 
 <path class="domain" d="M20,6V0H780V6"></path></g>
 <g id="yAxis" transform="translate(-10, 0)">
@@ -108,16 +113,54 @@
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div id="l1">
+				<button id="b11" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
+				<button id="b12" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
+				<button id="b13" class="button button-rounded button-primary" value="FoxNews">Fox</button>
+				<button id="b14" class="button button-rounded button-primary" value="TMZ">TMZ</button>
+                <button id="b15" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
+				<button id="b16" class="button button-rounded button-primary" value="barackobama">Obama</button>
+				<button id="b17" class="button button-rounded button-primary" value="bbcnews">BBC</button>
+				<button id="b18" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
+                <button id="b19" class="button button-rounded button-primary" value="cnn">CNN</button>
+				<button id="b110" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
+				<button id="b111" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
+				<button id="b112" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
+			</div>
+          </div>
+          <div class="col-md-6">
+              <div id="l2">
+				<button id="b21" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
+				<button id="b22" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
+				<button id="b23" class="button button-rounded button-primary" value="FoxNews">Fox</button>
+				<button id="b24" class="button button-rounded button-primary" value="TMZ">TMZ</button>
+                <button id="b25" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
+				<button id="b26" class="button button-rounded button-primary" value="barackobama">Obama</button>
+				<button id="b27" class="button button-rounded button-primary" value="bbcnews">BBC</button>
+				<button id="b28" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
+                <button id="b29" class="button button-rounded button-primary" value="cnn">CNN</button>
+				<button id="b210" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
+				<button id="b211" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
+				<button id="b212" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
+			</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <p id="sel1"></p>
+            <div id="wordcloud1" style="width: 100%; height: 400px">
+            </div>
+          </div>
+          <div class="col-md-6">
+              <p id="sel2"></p>
+              <div id="wordcloud2" style="width: 100%; height: 400px">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -128,6 +171,83 @@
         </div>
       </div>
     </div>
+
+
+
+<script>
+    document.getElementById("b11").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b12").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b13").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b14").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b15").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b16").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b17").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b18").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b19").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b110").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b111").onclick = function() {selectButtonFromFirstRow(this.id)};
+    document.getElementById("b112").onclick = function() {selectButtonFromFirstRow(this.id)};
+
+
+    var words = {{ word_dict | safe}}
+    function selectButtonFromFirstRow(id) {
+        var value = document.getElementById(id).value;
+        document.getElementById("sel1").innerHTML = value;
+
+        $('#wordcloud1').jQCloud(words[value]);
+        var elements = document.getElementById('l1').children;
+        for (var i = 0; i < elements.length; i++) {
+            if(elements[i].className.indexOf('disabled') == 0) {
+                elements[i].className = elements[i].className.substring(8);
+            }
+        }
+        document.getElementById(id).className = "disabled " + document.getElementById(id).className;
+    };
+
+    document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b22").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b23").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b24").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b25").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b26").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b27").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b28").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b29").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b210").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b211").onclick = function() {selectButtonFromSecondRow(this.id)};
+    document.getElementById("b212").onclick = function() {selectButtonFromSecondRow(this.id)};
+
+
+    function selectButtonFromSecondRow(id) {
+        var value = document.getElementById(id).value;
+        document.getElementById("sel2").innerHTML = value;
+{#        $('#wordcloud2').empty();#}
+
+        $('#wordcloud2').jQCloud(words[value]);
+
+        var elements = document.getElementById('l2').children;
+        for (var i = 0; i < elements.length; i++) {
+            if(elements[i].className.indexOf('disabled') == 0) {
+                elements[i].className = elements[i].className.substring(8);
+            }
+        }
+        document.getElementById(id).className = "disabled " + document.getElementById(id).className;
+{#        start();#}
+    }
+
+{#    start();#}
+{#    function start() {#}
+{#        var rp1 = radialProgress(document.getElementById('r11'))#}
+{#            .diameter(150)#}
+{#                .value(20)#}
+{#                .render();#}
+{#        var rp2 = radialProgress(document.getElementById('r12'))#}
+{#            .diameter(150)#}
+{#            .value(20)#}
+{#            .render();#}
+{#    }#}
+
+</script>
 
 </body>
 </html>

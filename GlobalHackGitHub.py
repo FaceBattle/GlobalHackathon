@@ -14,8 +14,7 @@ def find_bias():
     my_q = MyQuery()
 
     freq_dict = my_q.get_number_of_posts_for_word(word_searched)
-    pos_dict = my_q.main_word_every_page(word_searched)
-
+    pos_dict, word_dict = my_q.main_word_every_page(word_searched)
 
     print(pos_dict)
     page_freq_list = []
@@ -24,12 +23,24 @@ def find_bias():
            "name": key,
            "size": value
         })
-
     root_orig = {
          "name": "pages",
          "children": page_freq_list
     }
-    return render_template('page.html', word=word_searched, bubble_data=root_orig, freq_dict=freq_dict, post_dict=pos_dict)
+
+    new_word_dict = {}
+    for key, value in word_dict.iteritems():
+        words_array = []
+        for word in value:
+            words_array.append(
+                {
+                    "text": word[2], "weight": word[0]
+                }
+            )
+        new_word_dict[key] = words_array
+    print(new_word_dict)
+
+    return render_template('page.html', word=word_searched, bubble_data=root_orig, freq_dict=freq_dict, post_dict=pos_dict, word_dict=new_word_dict)
 
 
 if __name__ == '__main__':
