@@ -16,6 +16,8 @@
     <script src="{{ url_for('static', filename='js/bubbles.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
 </head>
 
 <body>
@@ -39,142 +41,176 @@
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="page-header text-center">
-              <h1> {{ word }}</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-              <div id="bubbleDiv">
-                  <center>
-                <script>
-                make_bubbles({{ bubble_data | safe }}, "{{ url_for('static', filename='icons/') }}")
-                </script>
-                    </center>
+    <section class="middle" data-stellar-background-ratio="0.4">
+        <div class="content">
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="page-header text-center">
+                      <h1> {{ word }}</h1>
+                    </div>
+                  </div>
+                </div>
               </div>
-          </div>
-        </div>
-        <div class="row"><div class="col-md-12 text-center">
-              <h2> Frequency </h2>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-              <div id="wrapper">
-      <div id="chart">
-
-      <svg width="1000" height="640"><g class="chart" transform="translate(80, -60)">
-        <text id="countryLabel" x="0" y="170" style="font-size: 80px; font-weight: bold; fill: #dddddd;"></text>
-
-        <line id="bestfit" x1="20" y1="545.7195889598048" x2="780" y2="168.09125592579943" style="opacity: 1;"></line>
-        <text id="xLabel" x="400" y="670" text-anchor="middle"> Favorability to the subject (in percentage of positiveness of sentiment analysis) </text>
-        <text transform="translate(-60, 330)rotate(-90)" id="yLabel" text-anchor="middle">Frequency of posts related to the subject (in number of posts)</text>
-
-          {% for key, value in pos_dict.iteritems() %}
-            <svg id="{{ "mySvg" + key }}" width="40" height="40">
-                <defs id="{{ "mdef" + key }}">
-                    <pattern id="{{ "myimage"+key}}" x="0" y="0" height="40" width="40">
-                        <image x="0" y="0" width="40" height="40" xlink:href="{{ url_for('static', filename='icons/' + key + '.png') }}"></image>
-                    </pattern>
-                </defs>
-            </svg>
-            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="23" style="cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
-           {% endfor %}
-
-<g transform="translate(0, 630)" id="xAxis">
-<path class="domain" d="M20,6V0H780V6"></path></g>
-<g id="yAxis" transform="translate(-10, 0)">
-            <path class="domain" d="M-6,100H0V600H-6"></path></g></g></svg></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div id="l1">
-				<button id="b11" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
-				<button id="b12" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
-				<button id="b13" class="button button-rounded button-primary" value="FoxNews">Fox</button>
-				<button id="b14" class="button button-rounded button-primary" value="TMZ">TMZ</button>
-                <button id="b15" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
-				<button id="b16" class="button button-rounded button-primary" value="barackobama">Obama</button>
-				<button id="b17" class="button button-rounded button-primary" value="bbcnews">BBC</button>
-				<button id="b18" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
-                <button id="b19" class="button button-rounded button-primary" value="cnn">CNN</button>
-				<button id="b110" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
-				<button id="b111" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
-				<button id="b112" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
-			</div>
-          </div>
-          <div class="col-md-6">
-              <div id="l2">
-				<button id="b21" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
-				<button id="b22" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
-				<button id="b23" class="button button-rounded button-primary" value="FoxNews">Fox</button>
-				<button id="b24" class="button button-rounded button-primary" value="TMZ">TMZ</button>
-                <button id="b25" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
-				<button id="b26" class="button button-rounded button-primary" value="barackobama">Obama</button>
-				<button id="b27" class="button button-rounded button-primary" value="bbcnews">BBC</button>
-				<button id="b28" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
-                <button id="b29" class="button button-rounded button-primary" value="cnn">CNN</button>
-				<button id="b210" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
-				<button id="b211" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
-				<button id="b212" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
-			</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div id="wordcloud1" style="width: 100%; height: 400px">
             </div>
-          </div>
-          <div class="col-md-6">
-              <div id="wordcloud2" style="width: 100%; height: 400px">
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6" align="center">
-              <div id="r11"></div>
-            </div>
-          <div class="col-md-6">
-              <div id="r12"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12"></div>
-        </div>
-      </div>
-    </div>
+    </section>
 
+
+    <section class="wrapper" data-stellar-background-ratio="0.4">
+        <div class="content">
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                      <div id="bubbleDiv">
+                          <center>
+                        <script>
+                        make_bubbles({{ bubble_data | safe }}, "{{ url_for('static', filename='icons/') }}")
+                        </script>
+                            </center>
+                      </div>
+                  </div>
+                </div>
+                <div class="row"><div class="col-md-12 text-center">
+                      <h2> Frequency </h2>
+                </div></div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+
+
+       <section class="wrapper" data-stellar-background-ratio="0.4">
+           <div class="content">
+
+                <div class="section">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div id="wrapper">
+                  <div id="chart">
+
+                  <svg width="1000" height="640"><g class="chart" transform="translate(80, -60)">
+                    <text id="countryLabel" x="0" y="170" style="font-size: 80px; font-weight: bold; fill: #dddddd;"></text>
+
+                    <line id="bestfit" x1="20" y1="545.7195889598048" x2="780" y2="168.09125592579943" style="opacity: 1;"></line>
+                    <text id="xLabel" x="400" y="670" text-anchor="middle"> Favorability to the subject (in percentage of positiveness of sentiment analysis) </text>
+                    <text transform="translate(-60, 330)rotate(-90)" id="yLabel" text-anchor="middle">Frequency of posts related to the subject (in number of posts)</text>
+
+                      {% for key, value in pos_dict.iteritems() %}
+                        <svg id="{{ "mySvg" + key }}" width="40" height="40">
+                            <defs id="{{ "mdef" + key }}">
+                                <pattern id="{{ "myimage"+key}}" x="0" y="0" height="40" width="40">
+                                    <image x="0" y="0" width="40" height="40" xlink:href="{{ url_for('static', filename='icons/' + key + '.png') }}"></image>
+                                </pattern>
+                            </defs>
+                        </svg>
+                        <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="23" style="cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
+                       {% endfor %}
+
+            <g transform="translate(0, 630)" id="xAxis">
+            <path class="domain" d="M20,6V0H780V6"></path></g>
+            <g id="yAxis" transform="translate(-10, 0)">
+                        <path class="domain" d="M-6,100H0V600H-6"></path></g></g></svg></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+         </div>
+       </section>
+
+
+
+     <section class="middle" data-stellar-background-ratio="0.4">
+         <div class="content">
+
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div id="l1">
+                        <button id="b11" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
+                        <button id="b12" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
+                        <button id="b13" class="button button-rounded button-primary" value="FoxNews">Fox</button>
+                        <button id="b14" class="button button-rounded button-primary" value="TMZ">TMZ</button>
+                        <button id="b15" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
+                        <button id="b16" class="button button-rounded button-primary" value="barackobama">Obama</button>
+                        <button id="b17" class="button button-rounded button-primary" value="bbcnews">BBC</button>
+                        <button id="b18" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
+                        <button id="b19" class="button button-rounded button-primary" value="cnn">CNN</button>
+                        <button id="b110" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
+                        <button id="b111" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
+                        <button id="b112" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div id="l2">
+                        <button id="b21" class="button button-rounded button-primary" value="CarlyFiorina">Carly</button>
+                        <button id="b22" class="button button-rounded button-primary" value="DonaldTrump">Trump</button>
+                        <button id="b23" class="button button-rounded button-primary" value="FoxNews">Fox</button>
+                        <button id="b24" class="button button-rounded button-primary" value="TMZ">TMZ</button>
+                        <button id="b25" class="button button-rounded button-primary" value="aljazeera">Al Jazeera</button>
+                        <button id="b26" class="button button-rounded button-primary" value="barackobama">Obama</button>
+                        <button id="b27" class="button button-rounded button-primary" value="bbcnews">BBC</button>
+                        <button id="b28" class="button button-rounded button-primary" value="berniesanders">Bernie</button>
+                        <button id="b29" class="button button-rounded button-primary" value="cnn">CNN</button>
+                        <button id="b210" class="button button-rounded button-primary" value="dawndotcom">Dawn</button>
+                        <button id="b211" class="button button-rounded button-primary" value="hillaryclinton">Hillary</button>
+                        <button id="b212" class="button button-rounded button-primary" value="sydneymorningherald">Sydney</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+         </div>
+     </section>
+
+
+    <section class="wrapper" data-stellar-background-ratio="0.4">
+         <div class="content">
+
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div id="wordcloud1" style="width: 100%; height: 400px">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div id="wordcloud2" style="width: 100%; height: 400px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6" align="center">
+                      <div id="r11"></div>
+                    </div>
+                  <div class="col-md-6">
+                      <div id="r12"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12"></div>
+                </div>
+              </div>
+            </div>
+
+         </div>
+    </section>
 
 
 <script>
@@ -251,7 +287,12 @@
     }
 
 
-</script>
+
+    </script>
+
+  	<script>
+  		$.stellar();
+  	</script>
 
 </body>
 </html>
