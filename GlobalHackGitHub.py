@@ -14,7 +14,7 @@ def find_bias():
     my_q = MyQuery()
 
     freq_dict = my_q.get_number_of_posts_for_word(word_searched)
-    pos_dict = my_q.main_word_every_page(word_searched)
+    pos_dict, mydict_main_words = my_q.main_word_every_page(word_searched)
 
 
     print(pos_dict)
