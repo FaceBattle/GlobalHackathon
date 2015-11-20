@@ -69,7 +69,10 @@ class MyQuery(object):
             maxi = max(maxi,mydict[page.name])
             mini = min(mini,mydict[page.name])
         for key in mydict.keys():
-            mydict[key] = 1.0*(mydict[key] - mini)/(maxi - mini)
+            if (maxi - mini) == 0:
+                mydict[key] = mydict[key]
+            else:
+                mydict[key] = 1.0*(mydict[key] - mini)/(maxi - mini)
 
         return mydict
 
