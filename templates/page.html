@@ -127,12 +127,12 @@
           </div>
                    <div class="col-md-2">
                        <br>
-  <h2>Labels</h2>
-  <div style="width:180px; height:55px; border-radius:25px; background-color:green"> <font size="6">Positive</font> </div>
+  <h2>Opinion</h2>
+  <div style="width:180px; height:50px; border-radius:25px; background-color:green"> <font size="6" color="white">Positive</font> </div>
  <br>
-    <div style="width:180px; height:55px; border-radius:25px; background-color:red"> <font size="6">Negative</font> </div>
+    <div style="width:180px; height:50px; border-radius:25px; background-color:red"> <font size="6" color="white">Negative</font> </div>
  <br>
-    <div style="width:180px; height:55px; border-radius:25px; background-color:#82CAFF"> <font size="6">Neutral</font> </div>
+    <div style="width:180px; height:50px; border-radius:25px; background-color:#82CAFF"> <font size="6" color="white">Neutral</font> </div>
 
 
 </div>
@@ -265,6 +265,11 @@
                   <div class="col-md-2" align="center">
                       <div id="r11" align="center"></div>
                     </div>
+
+                        <!--<br/>-->
+                      <!--<div class="col-md-12" align="center"><h4>How Much They Support the Topic</h4></div>-->
+                      <!--<br/>-->
+
                     <div class="col-md-4" align="center"><h4>How Much They Support the Topic</h4></div>
                   <div class="col-md-2">
                       <div id="r12"></div>
@@ -282,6 +287,8 @@
                 </div>
 
                   <div class="row">
+                    <div class="col-md-12" align="center"><p2>How Much They Are Alike</p2></div>
+
                       <div class="col-md-12" align="center" id="matchDiv">
                       </div>
                   </div>
@@ -336,6 +343,23 @@
 
 
 <script>
+
+    function getFullName(value) {
+        if (value == 'aljazeera') return 'Al Jazeera';
+        if (value == 'barackobama') return 'Barack Obama';
+        if (value == 'bbcnews') return 'BBC News';
+        if (value == 'berniesanders') return 'Bernie Sanders';
+        if (value == 'CarlyFiorina') return 'Carly Fiorina';
+        if (value == 'cnn') return 'CNN';
+        if (value == 'dawndotcom') return 'Dawn.com';
+        if (value == 'DonaldTrump') return 'Donald Trump';
+        if (value == 'FoxNews') return 'Fox News';
+        if (value == 'hillaryclinton') return 'Hillary Clinton';
+        if (value == 'nytimes') return 'New York Times';
+        if (value == 'sydneymorningherald') return 'Sydney Morning Herald';
+        return 'TMZ';
+    }
+
     document.getElementById("b11").onclick = function() {selectButtonFromFirstRow(this.id)};
     document.getElementById("b12").onclick = function() {selectButtonFromFirstRow(this.id)};
     document.getElementById("b13").onclick = function() {selectButtonFromFirstRow(this.id)};
@@ -375,7 +399,6 @@
                 elements[i].className = elements[i].className.substring(8);
             }
         }
-{#        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";#}
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
 
         document.getElementById("post1").innerHTML =
@@ -383,8 +406,16 @@
             '<a href="http://facebook.com/'+ main_posts[value]['id'] + '">Link to Post<br></a>';
         start_rp1(pos_dict[value]);
 
-        document.getElementById("sel1").innerHTML = value;
+        document.getElementById("sel1").innerHTML = getFullName(value);
 
+        if (typeof main_posts != 'undefined' && typeof main_posts[value] != 'undefined') {
+            document.getElementById("post1").innerHTML =
+                    '<h4>' + main_posts[value]['message'] + '</h4>' +
+                    '<a href="http://facebook.com/' + main_posts[value]['id'] + '">Link to Post<br></a>';
+            start_rp1(pos_dict[value]);
+        }
+
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
     };
 
     document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
@@ -427,7 +458,6 @@
         }
 
 
-{#        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100) + "</h1>";#}
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
         start_rp2(pos_dict[value]);
 
@@ -437,7 +467,15 @@
 
 
 
-        document.getElementById("sel2").innerHTML = value;
+        document.getElementById("sel2").innerHTML = getFullName(value);
+
+        if (typeof main_posts != 'undefined' && typeof main_posts[value] != 'undefined') {
+            document.getElementById("post2").innerHTML =
+                    '<h4>' + main_posts[value]['message'] + '</h4>' +
+                    '<a href="http://facebook.com/' + main_posts[value]['id'] + '">Link to Post<br></a>';
+        }
+
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
 
     }
 

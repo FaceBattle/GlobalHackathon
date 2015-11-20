@@ -43,7 +43,7 @@ def get_posts_from_page(page_id):
         list_of_posts += entry
         date = parse(entry[-1]["created_time"])
 
-        print(date.year, date.month, date.day)
+        # print(date.year, date.month, date.day)
         if date.year < 2015:
             break
 

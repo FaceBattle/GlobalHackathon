@@ -57,7 +57,6 @@ def find_bias():
         else:
             groups[key] = "#82CAFF"
 
-
     page_freq_list = []
     for key, value in freq_dict.iteritems():
         page_freq_list.append({
