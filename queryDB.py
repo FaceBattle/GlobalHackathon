@@ -13,18 +13,20 @@ class MyQuery(object):
         self.list_pages = list_pages
 
     def main_word_every_page(self, word):
+        mydict = {}
         for page in self.list_pages:
-            print page.name
-            print page.get_list_post_from_index(word)
+            # print page.name
+            # print page.get_list_post_from_index(word)
             list_main_words, sentimental = page.page_main_words(word)
-            for l in list_main_words:
-                print l[2],
-            print
-            print sentimental
+            mydict[page.name] = sentimental[0]
+            # for l in list_main_words:
+            #     print l[2],
+            # print
+            # print sentimental
+        return mydict
 
     def get_number_of_posts_for_word(self, word):
         mydict = {}
         for page in self.list_pages:
             mydict[page.name] = len(page.get_list_post_from_index(word))*1.0/page.last_id_added
         return mydict
-

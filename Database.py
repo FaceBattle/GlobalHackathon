@@ -36,7 +36,6 @@ class Database:
         page.load()
         return page
 
-
     def load(self):
         path = self.db_path
 
