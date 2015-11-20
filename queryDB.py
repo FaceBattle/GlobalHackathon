@@ -115,8 +115,6 @@ class MyQuery(object):
                             maxi = max(maxi, result[name1][name2])
 
         maxi = 1.1*maxi
-        print maxi
-        print result
         pq = PriorityQueue()
         result2 = deepcopy(result)
         for key in result.keys():
