@@ -163,7 +163,7 @@ class Page:
             post = self.get_post(id)
             main_words = post.main_words
             # sentimental[0] += post.metainfo["polarity"]
-            sentimental[0] += post.metainfo["vader"]["pos"] - post.metainfo["vader"]["neg"]
+            sentimental[0] += post.metainfo["vader"]["pos"]/post.metainfo["vader"]["neu"] - post.metainfo["vader"]["neg"]/post.metainfo["vader"]["neu"]
             sentimental[1] += post.metainfo["subjectivity"]
             for key,info in main_words.items():
                 if page_main_words.has_key(key):

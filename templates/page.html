@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -145,16 +145,26 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <p id="sel1"></p>
             <div id="wordcloud1" style="width: 100%; height: 400px">
             </div>
           </div>
           <div class="col-md-6">
-              <p id="sel2"></p>
               <div id="wordcloud2" style="width: 100%; height: 400px">
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+              <div id="r11"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div id="r12"></div>
+          </div>
       </div>
     </div>
     <div class="section">
@@ -182,10 +192,11 @@
     document.getElementById("b112").onclick = function() {selectButtonFromFirstRow(this.id)};
 
 
-    var words = {{ word_dict | safe}}
+    var words = {{ word_dict | safe}};
+    var pos_dict = {{ pos_dict | safe}};
+    console.log(pos_dict);
     function selectButtonFromFirstRow(id) {
         var value = document.getElementById(id).value;
-        document.getElementById("sel1").innerHTML = value;
 
         $('#wordcloud1').jQCloud('update', words[value]);
         var elements = document.getElementById('l1').children;
@@ -195,6 +206,7 @@
             }
         }
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
+        start_rp1(pos_dict[value]);
     };
 
     document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
@@ -210,10 +222,21 @@
     document.getElementById("b211").onclick = function() {selectButtonFromSecondRow(this.id)};
     document.getElementById("b212").onclick = function() {selectButtonFromSecondRow(this.id)};
 
+    function start_rp1(total_value) {
+        var rp1 = radialProgress(document.getElementById('r11'))
+                .diameter(150)
+                .value(total_value*100)
+                .render();
+    }
+    function start_rp2(total_value) {
+        var rp2 = radialProgress(document.getElementById('r12'))
+            .diameter(150)
+            .value(total_value*100)
+            .render();
+    }
 
     function selectButtonFromSecondRow(id) {
         var value = document.getElementById(id).value;
-        document.getElementById("sel2").innerHTML = value;
 
         $('#wordcloud2').jQCloud('update', words[value]);
 
@@ -224,20 +247,9 @@
             }
         }
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
-{#        start();#}
+        start_rp2(pos_dict[value]);
     }
 
-{#    start();#}
-{#    function start() {#}
-{#        var rp1 = radialProgress(document.getElementById('r11'))#}
-{#            .diameter(150)#}
-{#                .value(20)#}
-{#                .render();#}
-{#        var rp2 = radialProgress(document.getElementById('r12'))#}
-{#            .diameter(150)#}
-{#            .value(20)#}
-{#            .render();#}
-{#    }#}
 
 </script>
 

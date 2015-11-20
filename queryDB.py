@@ -16,6 +16,7 @@ class MyQuery(object):
 
     def main_word_every_page(self, word):
         my_pos_dict = {}
+        my_pos_dict_normed = {}
         my_word_dict = {}
         maxi = - 10
         mini = 10
@@ -30,9 +31,9 @@ class MyQuery(object):
 
         #normalize
         for key in my_pos_dict.keys():
-            my_pos_dict[key] = 1.0*(my_pos_dict[key] - mini)/(maxi - mini)
+            my_pos_dict_normed[key] = 1.0*(my_pos_dict[key] - mini)/(maxi - mini)
 
-        return my_pos_dict, my_word_dict
+        return my_pos_dict, my_pos_dict_normed, my_word_dict
 
     def get_number_of_posts_for_word(self, word):
         mydict = {}

@@ -15,7 +15,7 @@ def find_bias():
 
     freq_dict = my_q.get_number_of_posts_for_word(word_searched)
 
-    pos_dict_normed, word_dict = my_q.main_word_every_page(word_searched)
+    pos_dict_orig, pos_dict_normed, word_dict = my_q.main_word_every_page(word_searched)
 
     page_freq_list = []
     for key, value in freq_dict.iteritems():
@@ -39,7 +39,10 @@ def find_bias():
             )
         new_word_dict[key] = words_array
 
-    return render_template('page.html', word=word_searched, bubble_data=root_orig, freq_dict=freq_dict, pos_dict=pos_dict_normed, word_dict=new_word_dict)
+    return render_template('page.html', word=word_searched, bubble_data=root_orig,
+                           freq_dict=freq_dict,
+                           pos_dict=pos_dict_normed, pos_dict_orig=pos_dict_orig,
+                           word_dict=new_word_dict)
 
 
 if __name__ == '__main__':
