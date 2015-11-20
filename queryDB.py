@@ -13,17 +13,28 @@ class MyQuery(object):
         self.list_pages = list_pages
 
     def main_word_every_page(self, word):
-        mydict = {}
+        mydict_sentimental = {}
+        maxi = -10
+        mini = 10
+        mydict_main_words = {}
         for page in self.list_pages:
             # print page.name
             # print page.get_list_post_from_index(word)
             list_main_words, sentimental = page.page_main_words(word)
-            mydict[page.name] = sentimental[0]
+            mydict_sentimental[page.name] = sentimental[0]
+            maxi = max(maxi,sentimental[0])
+            mini = min(mini,sentimental[0])
+            mydict_main_words[page.name] = list_main_words
             # for l in list_main_words:
             #     print l[2],
             # print
             # print sentimental
-        return mydict
+
+        #normalize
+        for key in mydict_sentimental.keys():
+            mydict_sentimental[key] = 1.0*(mydict_sentimental[key] - mini)/(maxi - mini)
+
+        return mydict_sentimental, mydict_main_words
 
     def get_number_of_posts_for_word(self, word):
         mydict = {}
