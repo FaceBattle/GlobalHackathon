@@ -2,20 +2,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="//code.highcharts.com/highcharts.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{{ url_for('static', filename='js/d3.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/radialProgress.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/progress_styles.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" media="screen">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
     <link href="{{ url_for('static', filename='stylesheets/page.css') }}" rel="stylesheet" type="text/css">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="{{ url_for('static', filename='js/bubbles.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
 </head>
 
 <body>
@@ -39,17 +41,24 @@
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="page-header text-center">
-              <h1> {{ word }}</h1>
+
+
+    <section class="middle" data-stellar-background-ratio="0.4">
+        <div class="content">
+
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="page-header text-center">
+                      <h1> {{ word }}</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
+    </section>
 
     <div class="section">
       <div class="container">
@@ -139,11 +148,16 @@
 			</div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
+          <div class="row">
+              <div class="col-md-12" align="center" id="matchDiv">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12" align="center">
+                  <h3>Most related terms</h3>
+              </div>
+          </div>
+      <div class="row">
           <div class="col-md-6">
             <div id="wordcloud1" style="width: 100%; height: 400px">
             </div>
@@ -153,20 +167,28 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
+
         <div class="row">
-          <div class="col-md-6" align="center">
-              <div id="r11"></div>
+              <div class="col-md-12" align="center">
+                  <h3>Positivy Count</h3>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-md-2" align="center"></div>
+          <div class="col-md-2" align="center">
+              <div id="r11" align="center"></div>
             </div>
-          <div class="col-md-6">
+            <div class="col-md-2" align="center"></div>
+            <div class="col-md-2" align="center"></div>
+          <div class="col-md-2">
               <div id="r12"></div>
           </div>
+            <div class="col-md-2" align="center"></div>
         </div>
       </div>
     </div>
+
+
     <div class="section">
       <div class="container">
         <div class="row">
@@ -194,10 +216,17 @@
 
     var words = {{ word_dict | safe}};
     var pos_dict = {{ pos_dict | safe}};
-    console.log(pos_dict);
+    var matches = {{ matches | safe }};
+
+    console.log(matches);
+
+    var selected_1;
+    var selected_2;
+
     function selectButtonFromFirstRow(id) {
         var value = document.getElementById(id).value;
 
+        selected_1= value;
         $('#wordcloud1').jQCloud('update', words[value]);
         var elements = document.getElementById('l1').children;
         for (var i = 0; i < elements.length; i++) {
@@ -205,6 +234,7 @@
                 elements[i].className = elements[i].className.substring(8);
             }
         }
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
         start_rp1(pos_dict[value]);
     };
@@ -238,6 +268,7 @@
     function selectButtonFromSecondRow(id) {
         var value = document.getElementById(id).value;
 
+        selected_2 = value;
         $('#wordcloud2').jQCloud('update', words[value]);
 
         var elements = document.getElementById('l2').children;
@@ -246,10 +277,14 @@
                 elements[i].className = elements[i].className.substring(8);
             }
         }
+
+
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100) + "</h1>";
         document.getElementById(id).className = "disabled " + document.getElementById(id).className;
         start_rp2(pos_dict[value]);
     }
 
+  	$.stellar();
 
 </script>
 
