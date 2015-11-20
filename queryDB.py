@@ -19,13 +19,18 @@ class MyQuery(object):
 
     def main_post_every_page(self, word):
         my_post_dict = {}
+
         for page in self.list_pages:
+            best_id = 1
+            n_likes = 0
             list = page.get_list_post_from_index(word)
             if list == []:
                 continue
-            post_id = list[int(len(list)/2)]
-            id = page.get_post(post_id).metainfo["id"]
-            my_post_dict[page.name] = id
+            for post_id in list:
+                count = page.get_post(post_id).metainfo["like_count"]
+                if count > n_likes:
+                    best_id = page.get_post(post_id).metainfo["id"]
+            my_post_dict[page.name] = best_id
         return my_post_dict
 
     def main_word_every_page(self, word):
@@ -43,9 +48,11 @@ class MyQuery(object):
             maxi = max(maxi,sentimental[0])
             mini = min(mini,sentimental[0])
 
+
         #normalize
         for key in my_pos_dict.keys():
             my_pos_dict_normed[key] = 1.0*(my_pos_dict[key] - mini)/(maxi - mini)
+
 
         return my_pos_dict, my_pos_dict_normed, my_word_dict
 
