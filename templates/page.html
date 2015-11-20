@@ -150,7 +150,7 @@
             <div class="section">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-5">
                     <div id="l1">
 
 
@@ -202,7 +202,13 @@
                       </div>
 
                   </div>
-                  <div class="col-md-6">
+                    <div class="col-md-2" align="center"><h4>How Much They Think Alike</h4>
+                    <div class="col-md-12" align="center" id="matchDiv">
+                      </div>
+                    </div>
+
+
+                  <div class="col-md-5">
                       <div id="l2">
 
 
@@ -285,13 +291,6 @@
                       <div id="post2"></div>
                   </div>
                 </div>
-
-                  <div class="row">
-                    <div class="col-md-12" align="center"><p2>How Much They Are Alike</p2></div>
-
-                      <div class="col-md-12" align="center" id="matchDiv">
-                      </div>
-                  </div>
 
               <div class="row">
                   <div class="col-md-6">
@@ -415,7 +414,7 @@
             start_rp1(pos_dict[value]);
         }
 
-        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100) + " %" + "</h1>";
     };
 
     document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
@@ -475,7 +474,7 @@
                     '<a href="http://facebook.com/' + main_posts[value]['id'] + '">Link to Post<br></a>';
         }
 
-        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100) + " %"  + "</h1>";
 
     }
 
