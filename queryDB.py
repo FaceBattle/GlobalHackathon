@@ -131,4 +131,15 @@ class MyQuery(object):
         return result, result2
 
 
-
+    def data_graphic(self, word):
+        time_list = [0]*53
+        for page in self.list_pages:
+            list = page.get_list_post_from_index(word)
+            for post_id in list:
+                time = page.get_post(post_id).metainfo["created_time"]
+                month, day = time[5:7], time[8:10]
+                week = int(month)*4+ int(day)/7 +1
+                week = min(52, week)
+                print week
+                time_list[week] += 1
+        return time_list
