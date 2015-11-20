@@ -20,13 +20,30 @@ def find_bias():
 
     pos_dict_orig, pos_dict_normed, word_dict = my_q.main_word_every_page(word_searched)
 
-    matches, trash = my_q.matching_people(word_searched)
-
     main_posts = my_q.main_post_every_page(word_searched)
     post_class_dict = {}
     for key, value in main_posts.iteritems():
         post_obj = get_post(value)
         post_class_dict[key] = post_obj
+    mat = []
+    maxdist = 0
+    for i,key1 in enumerate(pos_dict_normed.keys()):
+        mat.append([])
+        for j,key2 in enumerate(pos_dict_normed.keys()):
+            mat[i].append(((freq_dict[key1]-freq_dict[key2])**2 + (pos_dict_normed[key1]-pos_dict_normed[key2])**2)**(0.5))
+            maxdist = max(maxdist, mat[i][j])
+    for i,key1 in enumerate(pos_dict_normed.keys()):
+        for j,key2 in enumerate(pos_dict_normed.keys()):
+            mat[i][j] = maxdist-mat[i][j]
+            mat[i][j] = ((1.0*mat[i][j])/maxdist)*97 + 3
+    matches = {}
+    for i, key1 in enumerate(pos_dict_normed.keys()):
+        matches[key1] = {}
+        for j, key2 in enumerate(pos_dict_normed.keys()):
+            matches[key1][key2] = mat[i][j]/100
+
+    #matches, trash = my_q.matching_people(word_searched)
+
 
     groups = {}
     for key in pos_dict_normed.keys():
