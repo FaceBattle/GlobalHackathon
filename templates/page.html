@@ -187,7 +187,7 @@
         var value = document.getElementById(id).value;
         document.getElementById("sel1").innerHTML = value;
 
-        $('#wordcloud1').jQCloud(words[value]);
+        $('#wordcloud1').jQCloud('update', words[value]);
         var elements = document.getElementById('l1').children;
         for (var i = 0; i < elements.length; i++) {
             if(elements[i].className.indexOf('disabled') == 0) {
@@ -214,9 +214,8 @@
     function selectButtonFromSecondRow(id) {
         var value = document.getElementById(id).value;
         document.getElementById("sel2").innerHTML = value;
-{#        $('#wordcloud2').empty();#}
 
-        $('#wordcloud2').jQCloud(words[value]);
+        $('#wordcloud2').jQCloud('update', words[value]);
 
         var elements = document.getElementById('l2').children;
         for (var i = 0; i < elements.length; i++) {
