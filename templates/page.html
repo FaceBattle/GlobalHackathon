@@ -107,7 +107,7 @@
                     </pattern>
                 </defs>
             </svg>
-            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="30" style="background: green; cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
+            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="30" stroke="{{ groups[key] }}" stroke-width="7" style="background: green; cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
            {% endfor %}
 
 <g transform="translate(0, 630)" id="xAxis">
