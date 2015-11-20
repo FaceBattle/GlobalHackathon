@@ -138,6 +138,6 @@ class MyQuery(object):
                 month, day = time[5:7], time[8:10]
                 week = int(month)*4+ int(day)/7 +1
                 week = min(52, week)
-                print week
+                # print week
                 time_list[week] += 1
         return time_list
