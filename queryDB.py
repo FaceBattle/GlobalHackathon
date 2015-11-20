@@ -60,33 +60,41 @@ class MyQuery(object):
         return num
 
     def matching_people(self,word):
-        pages_mains_words = []
+        pages_mains_words = {}
+        result = {}
         for page in self.list_pages:
             # print page.name
             # print page.get_list_post_from_index(word)
             main_words, sentimental = page.page_main_words(word)
-            pages_mains_words.append(main_words[0:30])
+            main_words = main_words[0:40]
+            for i in range(len(main_words)):
+               main_words[i] = main_words[i][2]
+            pages_mains_words[page.name] = set(main_words)
+            result[page.name] = {}
+
+        mini = 0
+        maxi = -100
+        for i in xrange(len(self.list_pages)-1):
+            name1 = self.list_pages[i].name
+            set1 = pages_mains_words[name1]
+            for j in xrange(i+1, len(self.list_pages)):
+                name2 = self.list_pages[j].name
+                set2 = pages_mains_words[name2]
+                for w in set1:
+                    if w in set2:
+                        if result[name1].has_key(name2):
+                            result[name1][name2] += 1
+                        else:
+                            result[name1][name2] = 1
+                        maxi = max(maxi, result[name1][name2])
+
+        maxi = 1.1*maxi
+        print maxi
+        print result
+        for key in result.keys():
+            for key2 in result[key]:
+                result[key][key2] = result[key][key2]/maxi
+
+        return result
 
 
-        maxi = - 1000
-        mini = 1000
-        matrix = []
-        for i in xrange(len(pages_mains_words)):
-            diff = []
-            for j in xrange(len(pages_mains_words)):
-                diff.append([])
-            matrix.append(diff)
-
-        for i in xrange(len(pages_mains_words)-1):
-            for j in xrange(i+1,len(pages_mains_words)):
-                dist = self.equal_words(pages_mains_words[i],pages_mains_words[j])
-                matrix[i][j]= dist
-                maxi = max(maxi, dist)
-                mini = min(mini, dist)
-        print str(maxi) +" " + str(mini)
-        mini = mini*0.9
-        maxi = maxi*1.1
-        for i in xrange(len(pages_mains_words)-1):
-            for j in xrange(i+1,len(pages_mains_words)):
-                matrix[i][j] = (1.0*matrix[i][j] - mini)/ (maxi-mini)
-        return matrix
