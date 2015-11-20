@@ -10,22 +10,45 @@
 <link href="{{ url_for('static', filename='stylesheets/page.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<div class="container">
-    <form action="/bias/" method="post" id="myform">
-        <input type="hidden" name="authtoken" id="myformtoken">
-        <div class="form-group">
-                <label for="wordInput">Choose a word to look for</label>
-                <input type="text" class="form-control" id="wordInput" name="word"
-                       value="Terrorism">
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>FaceBias</span><br><br></a>
         </div>
-
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">Github<br></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <button class="btn btn-primary" type="submit" id="submitbutton">Compare</button>
-            </div>
+             <form action="/bias/" method="post" id="myform">
+                <input type="hidden" name="authtoken" id="myformtoken">
+                <div class="form-group">
+                        <label for="wordInput">Choose a word to look for</label>
+                        <input type="text" class="form-control" id="wordInput" name="word"
+                               value="Terrorism">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-primary" type="submit" id="submitbutton">Compare</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
 </div>
 </body>
 </html>                                		
