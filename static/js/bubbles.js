@@ -56,16 +56,16 @@ function make_bubbles(root, imagesFolder) {
                 return imagesFolder + d.className + '.png';
             })
             .attr('x', function (d, i) {
-                return -d.r / 2;
+                return (-d.r*1.7) / 2;
             })
             .attr('y', function (d, i) {
-                return -d.r / 2;
+                return (-d.r*1.7) / 2;
             })
             .attr('width', function (d, i) {
-                return d.r + 'px';
+                return (d.r*1.7) + 'px';
             })
             .attr('height', function (d, i) {
-                return d.r + 'px';
+                return (d.r*1.7) + 'px';
             });
 
 

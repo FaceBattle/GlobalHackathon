@@ -39,14 +39,12 @@ def find_bias():
 
     groups = {}
     for key in pos_dict_normed.keys():
-        if freq_dict[key] > 0.2 and pos_dict_normed[key] > 0.6:
-            groups[key] = 0
-        elif freq_dict[key] > 0.2 and pos_dict_normed[key] < 0.4:
-            groups[key] = 1
+        if freq_dict[key] > 0.17 and pos_dict_normed[key] > 0.6:
+            groups[key] = "green"
+        elif freq_dict[key] > 0.17 and pos_dict_normed[key] < 0.4:
+            groups[key] = "red"
         else:
-            groups[key] = 2
-
-
+            groups[key] = "#82CAFF"
 
 
 
@@ -77,7 +75,8 @@ def find_bias():
                            freq_dict=freq_dict,
                            pos_dict=pos_dict_normed, pos_dict_orig=pos_dict_orig,
                            word_dict=new_word_dict,
-                           matches=matches)
+                           matches=matches,
+                           groups=groups)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False)
