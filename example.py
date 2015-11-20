@@ -14,15 +14,13 @@ bbcnews_urls = ["http://www.bbc.com/news/uk-34644273?ocid=socialflow_facebook&ns
                 "http://www.bbc.com/news/science-environment-34638603?ocid=socialflow_facebook&ns_mchannel=social&ns_campaign=bbcnews&ns_source=facebook",
                 "http://www.bbc.com/sport/0/rugby-union/34671255?ns_mchannel=social&#38;ns_campaign=bbc_sport&#38;ns_source=facebook&#38;ns_linkname=sport"]
 
-bbcnews_urls = ["http://www.facebook.com/l.php?u=http%3A%2F%2Fgo.berniesanders.com%2Fpage%2Fsignup%2Fliving-wage%3Fsource%3Dfb11192015&h=TAQELfYey&s=1&enc=AZNFEkLGx8o7kFtvNRU7lhHyTNoQlSGj7f8r1_O2y0i89qq1GX9u2ahi8bCjfHn1XDX1CgQnHARKS9Jst3Hzyy8t"]
-
 
 #ADDING POST TO A PAGE
 for url in bbcnews_urls:
     metainfo["title"] = "article_title"
     metainfo["likes"] = 10
     metainfo["shares"] = 10
-    page.add_post_url(url, metainfo)
+    page.add_post(url, metainfo)
     print "done:" + url
 
 #GET LIST OF POST THAT CONTAIN A WORD
@@ -39,4 +37,3 @@ for id in list_post:
 
 
 db.save()
-post = page.get_post(2)

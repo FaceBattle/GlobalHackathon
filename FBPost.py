@@ -13,10 +13,10 @@ class FBPost(object):
         if 'attachments' in json:
             attachment_list = json['attachments']['data']
             attachment = attachment_list[0]
-            self.description = attachment.get('description', '')
-            self.title = attachment.get('title', '')
 
             if attachment['type'] == 'link' or attachment['type'] == 'share' :
+                self.description = attachment.get('description', '')
+                self.title = attachment.get('title', '')
                 url = attachment.get('url', '')
                 if len (url) > 0 :
                     if url.startswith('https://www.facebook.com/l.php?u='):

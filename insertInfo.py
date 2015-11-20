@@ -36,9 +36,9 @@ for page_name in pages:
 
     metainfo1 = {}
     page = db.create_page(page_name, metainfo1)
-
+    print "PAGE NAME:"+ page_name
     #ADDING POST TO A PAGE
-    MAX = 5000
+    MAX = 1000
     if len(list_post_obj) > MAX:
         list_post_obj = list_post_obj[0:MAX]
     for post_obj in list_post_obj:
@@ -46,20 +46,19 @@ for page_name in pages:
         metainfo["title"] = post_obj.title
         metainfo["like_count"] = post_obj.like_count
         metainfo["created_time"] = post_obj.created_time
-        metainfo["description"] = post_obj.description
         metainfo["url"] = post_obj.url
         metainfo["id"] = post_obj.id
-        metainfo["message"] = post_obj.message
+        metainfo["message"] = post_obj.message + " " + metainfo["title"] + " " + post_obj.description
         #print post_obj.url
         #print post_obj.message
-        url = ""
-        if post_obj.url == "":
-            page.add_post(metainfo["title"] + " " + metainfo["message"] + " " + metainfo["description"], metainfo)
-        else:
-            page.add_post_url(post_obj.url, metainfo)
+        #url = ""
+        #if post_obj.url == "":
+        page.add_post(metainfo["message"], metainfo)
+
 
         #print "done:" + metainfo["title"]
 
-db.save()
+    db.save()
+
 
 

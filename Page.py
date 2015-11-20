@@ -11,24 +11,33 @@ import string
 from Post import *
 from nltk.stem.lancaster import LancasterStemmer
 import wikiwords
-from math import log
+from math import log, sqrt
+from textblob import TextBlob
+
+from vaderSentiment.vaderSentiment import sentiment as vaderSentiment
+
 
 class Page:
 
-    name = ""
-    metainfo = {}
-    index_words = {}
-    frequency_word = {}
-    last_id_added = 0
     stemmer = LancasterStemmer()
 
-    def __init__(self, name = "", metainfo = {},index_words = {}, frequency_word = {}):
+    def __init__(self, name = "", metainfo = None,index_words = None, frequency_word = None):
+
+        if metainfo is None:
+            metainfo = {}
+        if index_words is None:
+            index_words = {}
+        if frequency_word is None:
+            frequency_word = {}
+
         self.name = name
         self.metainfo = metainfo
         self.index_words = index_words
         self.frequency_word = frequency_word
+        self.last_id_added = 0
+        # print("Page " + name + "created")
 
-    def __update_index(self, post_text, post_frequencies):
+    def update_index(self, post_text, post_frequencies):
         """
         PRIVATE
         Update index_words and frequency_word
@@ -65,10 +74,20 @@ class Page:
             metainfo (dictionary): title, number of likes and shares, etc
         """
         text = text.encode('ascii','ignore')
+
+        #sentimental analysis
+        t = TextBlob(text)
+        metainfo["polarity"] = t.sentiment.polarity
+        metainfo["subjectivity"] = t.sentiment.subjectivity
+
+        vader = vaderSentiment(text)
+        metainfo["vader"] = vader
+
         text = text.translate(string.maketrans("",""), string.punctuation)
 
         #removing stop words
         stop = stopwords.words('english')
+
         #frequency in english language
         english_freq = {}
         reverse_stem = {}
@@ -90,7 +109,7 @@ class Page:
         for word, count in frequencies.items():
             english_freq[word] /= count
             #print reverse_stem[word] + ": " + str(english_freq[word])
-            tf_idf = (-1.0)*count/log(english_freq[word])
+            tf_idf = (-1.0)*count/(log(english_freq[word]))
             main_words.append([tf_idf, count, reverse_stem[word], word])
 
         #select just most important words
@@ -109,7 +128,7 @@ class Page:
 
         post = Post(id, self.name, metainfo, frequencies, final_main_words, reverse_stem)
         post.save()
-        self.__update_index(list_words, frequencies)
+        self.update_index(list_words, frequencies)
 
         self.save()
 
@@ -135,23 +154,33 @@ class Page:
     def page_main_words(self, word):
         list_post = self.get_list_post_from_index(word)
         page_main_words = {}
+        sentimental = [0,0]
         for id in list_post:
             post = self.get_post(id)
             main_words = post.main_words
+            sentimental[0] += post.metainfo["polarity"]
+            sentimental[1] += post.metainfo["subjectivity"]
             for key,info in main_words.items():
                 if page_main_words.has_key(key):
                     page_main_words[key][0] += info[0]
                     page_main_words[key][1] += info[1]
                 else:
                     page_main_words[key] = info
+        if len(list_post) != 0:
+            sentimental[0] /= len(list_post)
+            sentimental[1] /= len(list_post)
+
+
 
         #transform in list
         list_main_words = []
         for key,info in page_main_words.items():
+            #info[0] = (-1.0)*info[1]/log(wikiwords.freq(info[2], lambda x: 0.000001))
+            #print info
             list_main_words.append(info)
 
         list_main_words.sort(reverse=True)
-        return list_main_words
+        return list_main_words, sentimental
 
     def get_post(self, id):
             post = Post(id, self.name)
