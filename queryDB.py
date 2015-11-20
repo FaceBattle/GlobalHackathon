@@ -3,7 +3,9 @@ __author__ = 'danielpazinato'
 from Database import *
 from nltk.stem.lancaster import LancasterStemmer
 from copy import deepcopy
-
+from Queue import PriorityQueue
+from UnionFind import *
+import random
 class MyQuery(object):
     def __init__(self):
         self.db = Database("fb")
@@ -14,6 +16,17 @@ class MyQuery(object):
             list_pages.append(self.db.get_page(page))
         self.list_pages = list_pages
         self.stemmer = LancasterStemmer()
+
+    def main_post_every_page(self, word):
+        my_post_dict = {}
+        for page in self.list_pages:
+            list = page.get_list_post_from_index(word)
+            if list == []:
+                continue
+            post_id = list[int(len(list)/2)]
+            id = page.get_post(post_id).metainfo["id"]
+            my_post_dict[page.name] = id
+        return my_post_dict
 
     def main_word_every_page(self, word):
         my_pos_dict = {}
@@ -63,9 +76,13 @@ class MyQuery(object):
     def matching_people(self,word):
         pages_mains_words = {}
         result = {}
+        num_page = {}
+        n = 0
         for page in self.list_pages:
             # print page.name
             # print page.get_list_post_from_index(word)
+            num_page[page.name] = n
+            n += 1
             main_words, sentimental = page.page_main_words(word)
             main_words = main_words[0:50]
             for i in range(len(main_words)):
@@ -93,12 +110,18 @@ class MyQuery(object):
         maxi = 1.1*maxi
         print maxi
         print result
+        pq = PriorityQueue()
         result2 = deepcopy(result)
         for key in result.keys():
             for key2 in result[key]:
                 result[key][key2] = result[key][key2]/maxi
-                if result[key][key2] < 0.30: result2[key].__delitem__(key2)
-                else: result2[key][key2] = result[key][key2]
+                if result[key][key2] < 0.20: result2[key].__delitem__(key2)
+                else:
+                    result2[key][key2] = result[key][key2]
+                    pq.put([-result[key][key2],key,key2])
+
+
         return result, result2
+
 
 
