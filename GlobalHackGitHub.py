@@ -9,7 +9,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html')
+    pages = set(["aljazeera","barackobama","bbcnews","berniesanders",
+ "CarlyFiorina","cnn","dawndotcom","DonaldTrump",
+             "FoxNews","hillaryclinton","sydneymorningherald","TMZ"])
+    return render_template('index.html', pages=pages)
 
 @app.route('/bias/', methods=['POST'])
 def find_bias():
