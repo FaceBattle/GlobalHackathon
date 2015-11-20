@@ -43,7 +43,7 @@ def find_bias():
 
     return render_template('page.html',
                            word=word_searched, bubble_data=root_orig,
-                            freq_dict=freq_dict,
+                           freq_dict=freq_dict,
                            pos_dict=pos_dict_normed, pos_dict_orig=pos_dict_orig,
                            word_dict=new_word_dict,
                            matches=matches)

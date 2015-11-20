@@ -88,7 +88,8 @@
         <div class="row">
           <div class="col-md-12">
             <div id="wrapper">
-            <div id="chart" style="background-image: url({{ url_for('static', filename='images/gato.jpg') }})">
+{#            <div id="chart" style="background-image: url({{ url_for('static', filename='images/background.png') }}); background-position: center">#}
+            <div id="chart">
 
 
       <svg width="1000" height="640"><g class="chart" transform="translate(80, -60)">
@@ -99,14 +100,14 @@
         <text transform="translate(-60, 330)rotate(-90)" id="yLabel" text-anchor="middle">Frequency of posts related to the subject (in number of posts)</text>
 
           {% for key, value in pos_dict.iteritems() %}
-            <svg id="{{ "mySvg" + key }}" width="40" height="40">
+            <svg id="{{ "mySvg" + key }}" width="60" height="60">
                 <defs id="{{ "mdef" + key }}">
-                    <pattern id="{{ "myimage"+key}}" x="0" y="0" height="40" width="40">
-                        <image x="0" y="0" width="40" height="40" xlink:href="{{ url_for('static', filename='icons/' + key + '.png') }}"></image>
+                    <pattern id="{{ "myimage"+key}}" x="0" y="0" height="60" width="60">
+                        <image x="0" y="0" width="60" height="60" xlink:href="{{ url_for('static', filename='icons/' + key + '.png') }}"></image>
                     </pattern>
                 </defs>
             </svg>
-            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="23" style="cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
+            <circle cx="{{ 600 * value + 20 }}" cy="{{ 600 - (580 - 80)*freq_dict[key]}}" r="30" style="background: green; cursor: pointer; fill: url(#{{ "myimage" + key}}) "></circle>
            {% endfor %}
 
 <g transform="translate(0, 630)" id="xAxis">
@@ -157,11 +158,7 @@
               <div class="col-md-12" align="center" id="matchDiv">
               </div>
           </div>
-{#          <div class="row">#}
-{#              <div class="col-md-12" align="center">#}
-{#                  <h3>Most related terms</h3>#}
-{#              </div>#}
-{#          </div>#}
+
       <div class="row">
           <div class="col-md-6">
             <div id="wordcloud1" style="width: 100%; height: 400px">
