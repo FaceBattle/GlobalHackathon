@@ -1,8 +1,11 @@
 from flask import Flask
 from flask import render_template, request
 from queryDB import MyQuery
+from FBDownloader import get_post
+import json
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def hello_world():
@@ -17,6 +20,11 @@ def find_bias():
 
     pos_dict_orig, pos_dict_normed, word_dict = my_q.main_word_every_page(word_searched)
 
+    main_posts = my_q.main_post_every_page(word_searched)
+    post_class_dict = {}
+    for key, value in main_posts.iteritems():
+        post_obj = get_post(value)
+        post_class_dict[key] = post_obj
     mat = []
     maxdist = 0
     for i,key1 in enumerate(pos_dict_normed.keys()):
@@ -39,13 +47,12 @@ def find_bias():
 
     groups = {}
     for key in pos_dict_normed.keys():
-        if freq_dict[key] > 0.17 and pos_dict_normed[key] > 0.6:
+        if freq_dict[key] > 0.15 and pos_dict_normed[key] > 0.6:
             groups[key] = "green"
-        elif freq_dict[key] > 0.17 and pos_dict_normed[key] < 0.4:
+        elif freq_dict[key] > 0.15 and pos_dict_normed[key] < 0.4:
             groups[key] = "red"
         else:
             groups[key] = "#82CAFF"
-
 
 
     page_freq_list = []
@@ -76,7 +83,8 @@ def find_bias():
                            pos_dict=pos_dict_normed, pos_dict_orig=pos_dict_orig,
                            word_dict=new_word_dict,
                            matches=matches,
-                           groups=groups)
+                           groups=groups,
+                           important_posts=json.dumps(post_class_dict))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host='0.0.0.0', debug=True)

@@ -5,6 +5,7 @@ import facepy
 import sys
 import json
 from dateutil.parser import parse
+from FBPost import FBPostV2
 token =  "1666547706896513|gA92jKY9tThz_JZEeeY5zgyJRhY"
 
 
@@ -52,7 +53,26 @@ def get_posts_from_page(page_id):
         json.dump(my_json, f)
 
 
-pages_list = ['FoxNews']
+def get_post(post_id):
+    graph = facepy.GraphAPI(token)
+    page_path = post_id + '?fields=message,created_time,attachments,likes.limit(1).summary(true){id},comments.limit(1).summary(true){id}'
 
-for page in pages_list:
-    get_posts_from_page(page)
+    post = graph.get(path=page_path, page=False)
+    my_post_obj = FBPostV2(post)
+
+    my_post = {
+        "message": my_post_obj.message,
+        "description": my_post_obj.description,
+        "image_url":my_post_obj.image_url,
+        "url": my_post_obj.url,
+        "like_count": my_post_obj.like_count,
+        "id": my_post_obj.id
+    }
+
+    return my_post
+
+#
+# pages_list = ['FoxNews']
+#
+# for page in pages_list:
+#     get_posts_from_page(page)
