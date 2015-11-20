@@ -371,6 +371,8 @@
                     '<a href="http://facebook.com/' + main_posts[value]['id'] + '">Link to Post<br></a>';
             start_rp1(pos_dict[value]);
         }
+
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
     };
 
     document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
@@ -421,6 +423,8 @@
                     '<h4>' + main_posts[value]['message'] + '</h4>' +
                     '<a href="http://facebook.com/' + main_posts[value]['id'] + '">Link to Post<br></a>';
         }
+
+        document.getElementById("matchDiv").innerHTML = "<h1>" + Math.round(matches[selected_1][selected_2]*100)  + "</h1>";
     }
 
   	$.stellar();
