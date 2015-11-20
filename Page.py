@@ -174,8 +174,6 @@ class Page:
             sentimental[0] /= len(list_post)
             sentimental[1] /= len(list_post)
 
-
-
         #transform in list
         list_main_words = []
         for key,info in page_main_words.items():
@@ -205,7 +203,7 @@ class Page:
             open(path,"w+")
         cPickle.dump(self.__dict__,open(path,'wb'),2)
 
-    def __del__(self):
-        self.save()
+    # def __del__(self):
+    #     self.save()
 
 

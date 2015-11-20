@@ -227,7 +227,7 @@ Highcharts.theme = {
           },
           plotLines: [{
                 value: 0,
-                width: 1,
+                width: 2,
                 color: '#808080'
           }],
           min: 0
@@ -236,9 +236,10 @@ Highcharts.theme = {
           enabled: false
         },
         series: [{
-            name: 'Refugees',
+            name: 'Hello',
             data: ys
         }]
     });
 
 }
+
