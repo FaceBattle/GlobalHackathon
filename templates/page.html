@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='js/bower_components/jqcloud2/dist/jqcloud.min.css') }}">
     <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/buttons.css') }}" media="screen">
+    <script src="{{ url_for('static', filename='js/graph.js') }}"></script>
+
 </head>
 
 <body>
@@ -203,6 +205,30 @@
         </div>
       </div>
     </div>
+
+
+    <section class="middle" data-stellar-background-ratio="0.4">
+        <div class="content">
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+				        <div id="container" style="width: 800px; height: 400px; margin: 0 auto; border: 1px solid black;"></div>
+                        <script>
+                            var ys = {{ timeline | safe }};
+                            var xs = new Array(ys.length);
+                            for (var i = 0; i < ys.length; i++) {
+                                xs[i] = i;
+                             }
+                            plotGraph(xs,ys);
+                        </script>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
 
 
 

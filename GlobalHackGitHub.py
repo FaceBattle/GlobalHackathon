@@ -79,7 +79,7 @@ def find_bias():
                 }
             )
         new_word_dict[key] = words_array
-
+    timeline = my_q.data_graphic(word_searched)
     return render_template('page.html',
                            word=word_searched, bubble_data=root_orig,
                            freq_dict=freq_dict,
@@ -87,7 +87,8 @@ def find_bias():
                            word_dict=new_word_dict,
                            matches=matches,
                            groups=groups,
-                           important_posts=json.dumps(post_class_dict))
+                           important_posts=json.dumps(post_class_dict),
+                           timeline=timeline)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

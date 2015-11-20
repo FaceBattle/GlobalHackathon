@@ -1,7 +1,4 @@
 function plotGraph(xs, ys) {
-
-
-
 	// Load the fonts
 	Highcharts.createElement('link', {
 		href: '//fonts.googleapis.com/css?family=Unica+One',
