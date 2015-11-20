@@ -18,6 +18,15 @@ def find_bias():
     pos_dict_orig, pos_dict_normed, word_dict = my_q.main_word_every_page(word_searched)
 
     matches, trash = my_q.matching_people(word_searched)
+    groups = {}
+    for key in pos_dict_normed.keys():
+        if freq_dict[key] > 0.2 and pos_dict_normed[key] > 0.6:
+            groups[key] = 0
+        elif freq_dict[key] > 0.2 and pos_dict_normed[key] < 0.4:
+            groups[key] = 1
+        else:
+            groups[key] = 2
+
 
     page_freq_list = []
     for key, value in freq_dict.iteritems():
