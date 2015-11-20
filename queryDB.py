@@ -28,3 +28,5 @@ class MyQuery(object):
             mydict[page.name] = len(page.get_list_post_from_index(word))*1.0/page.last_id_added
         return mydict
 
+
+
