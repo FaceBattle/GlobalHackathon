@@ -51,7 +51,10 @@ class MyQuery(object):
 
         #normalize
         for key in my_pos_dict.keys():
-            my_pos_dict_normed[key] = 1.0*(my_pos_dict[key] - mini)/(maxi - mini)
+            if (maxi - mini) == 0:
+                my_pos_dict_normed[key] = my_pos_dict[key]
+            else:
+                my_pos_dict_normed[key] = 1.0*(my_pos_dict[key] - mini)/(maxi - mini)
 
 
         return my_pos_dict, my_pos_dict_normed, my_word_dict
