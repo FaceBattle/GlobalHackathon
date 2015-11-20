@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>		
+		<script src="http://code.highcharts.com/highcharts.js"></script>		
+	    <script type="text/javascript" src="scripts/d3.min.js"></script>
+	    <script type="text/javascript" src="scripts/radialProgress.js"></script>
+	    <link type="text/css" rel="stylesheet" href="styles/progress_styles.css">
+		<link rel="stylesheet" type="text/css" href="styles/buttons.css">
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<style>
+			.inner {
+				/*width: 60%;*/
+			    /*margin: auto;*/
+			}
+		</style>
+	</head>
+	<body>
+<!-- 		<div class="inner">
+			<div id="l1">
+				<button id="b11" class="button button-rounded button-primary">NYT</button>
+				<button id="b12" class="button button-rounded button-primary">Financial Times</button>
+				<button id="b13" class="button button-rounded button-primary">Trump</button>
+				<button id="b14" class="button button-rounded button-primary">Obama</button>
+			</div>
+
+			<br/>
+
+			<div id="l2">
+				<button id="b21" class="button button-rounded button-primary">NYT</button>
+				<button id="b22" class="button button-rounded button-primary">Financial Times</button>
+				<button id="b23" class="button button-rounded button-primary">Trump</button>
+				<button id="b24" class="button button-rounded button-primary">Obama</button>
+			</div>
+
+			<p id="sel1"></p>
+			<p id="sel2"></p>
+
+			<div class = "row">
+				<div class ="col-md-6">
+					<div id="r11"/>
+					<div id="r12"/>
+				</div>
+			</div>
+
+		</div>
+
+			<script>
+				document.getElementById("b11").onclick = function() {selectButtonFromFirstRow(this.id)};
+				document.getElementById("b12").onclick = function() {selectButtonFromFirstRow(this.id)};
+				document.getElementById("b13").onclick = function() {selectButtonFromFirstRow(this.id)};
+				document.getElementById("b14").onclick = function() {selectButtonFromFirstRow(this.id)};
+				function selectButtonFromFirstRow(id) {
+					document.getElementById("sel1").innerHTML = document.getElementById(id).innerHTML;
+					var elements = document.getElementById('l1').children;
+					for (var i = 0; i < elements.length; i++) {
+						if(elements[i].className.indexOf('disabled') == 0) {
+							elements[i].className = elements[i].className.substring(8);
+						}
+					}
+					document.getElementById(id).className = "disabled " + document.getElementById(id).className;
+				}
+				document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
+				document.getElementById("b22").onclick = function() {selectButtonFromSecondRow(this.id)};
+				document.getElementById("b23").onclick = function() {selectButtonFromSecondRow(this.id)};
+				document.getElementById("b24").onclick = function() {selectButtonFromSecondRow(this.id)};
+				function selectButtonFromSecondRow(id) {
+					document.getElementById("sel2").innerHTML = document.getElementById(id).innerHTML;
+					var elements = document.getElementById('l2').children;
+					for (var i = 0; i < elements.length; i++) {
+						if(elements[i].className.indexOf('disabled') == 0) {
+							elements[i].className = elements[i].className.substring(8);
+						}
+					}
+					document.getElementById(id).className = "disabled " + document.getElementById(id).className;
+					start();
+				}
+			</script>
+
+			<script>
+				start();
+				function start() {
+					var rp1 = radialProgress(document.getElementById('r11'))
+						.diameter(150)
+						.value(20)
+						.render();
+					var rp2 = radialProgress(document.getElementById('r12'))
+						.diameter(150)
+						.value(20)
+						.render();
+				}
+
+			</script>
+		</div>
+ -->
+			<div id="container" style="width: 800px; height: 400px; margin: 0 auto; border: 1px solid black;"></div>
+			<script src="scripts/graph.js"></script>
+			<script>
+				plotGraph([1,2],[1,2]);
+			</script>
+
+		
+	</body>
+</html>
