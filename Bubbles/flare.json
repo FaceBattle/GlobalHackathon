@@ -1,0 +1,43 @@
+{
+ "name": "flare",
+ "children": [
+  {
+   "name": "analytics",
+   "children": [
+    {
+     "name": "cluster",
+     "children": [
+      {"name": "AgglomerativeCluster", "size": 3938, "image": "bla.png"},
+      {"name": "MergeEdge", "size": 743}
+     ]
+    },
+    {
+     "name": "optimization",
+     "children": [
+      {"name": "AspectRatioBanker", "size": 70074}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "vis",
+   "children": [
+    {
+     "name": "axis",
+     "children": [
+      {"name": "Axes", "size": 1302},
+      {"name": "Axis", "size": 24593}
+     ]
+    },
+    {
+     "name": "controls",
+     "children": [
+      {"name": "HoverControl", "size": 4896},
+      {"name": "IControl", "size": 763}
+     ]
+    },
+    {"name": "Visualization", "size": 16540}
+   ]
+  }
+ ]
+}
