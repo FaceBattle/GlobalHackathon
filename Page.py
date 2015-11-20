@@ -109,7 +109,7 @@ class Page:
         for word, count in frequencies.items():
             english_freq[word] /= count
             #print reverse_stem[word] + ": " + str(english_freq[word])
-            tf_idf = (-1.0)*count/(log(english_freq[word]))
+            tf_idf = (-1.0)*log(count+0.1)/(log(english_freq[word]))
             main_words.append([tf_idf, count, reverse_stem[word], word])
 
         #select just most important words
@@ -190,6 +190,7 @@ class Page:
 
     def load(self):
         path = os.getcwd()+"/pages/"+self.name+'/metadata'
+        print path
         tmp_dict = cPickle.load(open(path,'rb'))
         self.__dict__.update(tmp_dict)
 
