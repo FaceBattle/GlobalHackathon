@@ -1,1 +1,1 @@
-web: gunicorn urls:app --log-file=-
+web: gunicorn GlobalHackGitHub:app --log-file=-
