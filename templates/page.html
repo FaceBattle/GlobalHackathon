@@ -195,6 +195,12 @@
                 </button>
 
                     </div>
+
+                      <div>
+                          <br/>
+                          <div align="center"><h4 id="sel1"></h4></div>
+                      </div>
+
                   </div>
                   <div class="col-md-6">
                       <div id="l2">
@@ -245,6 +251,12 @@
 
 
                     </div>
+
+                      <div>
+                          <br/>
+                          <div align="center"><h4 id="sel2"></h4></div>
+                      </div>
+
                   </div>
                 </div>
                 <br><br>
@@ -370,6 +382,9 @@
                 '<h4>' + main_posts[value]['message'] + '</h4>' +
             '<a href="http://facebook.com/'+ main_posts[value]['id'] + '">Link to Post<br></a>';
         start_rp1(pos_dict[value]);
+
+        document.getElementById("sel1").innerHTML = value;
+
     };
 
     document.getElementById("b21").onclick = function() {selectButtonFromSecondRow(this.id)};
@@ -419,6 +434,11 @@
         document.getElementById("post2").innerHTML =
             '<h4>' + main_posts[value]['message'] + '</h4>' +
             '<a href="http://facebook.com/'+ main_posts[value]['id'] + '">Link to Post<br></a>';
+
+
+
+        document.getElementById("sel2").innerHTML = value;
+
     }
 
   	$.stellar();
