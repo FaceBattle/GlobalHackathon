@@ -148,10 +148,10 @@ pre {
 
 .content{
 	display:block;
-	padding:100px 50px;
+	/*padding:100px 50px;
 	width:100%;
 	max-width: 960px;
-	margin:0 auto;
+	margin:0 auto;*/
 	overflow:hidden;
 }
 .content img{
@@ -173,7 +173,6 @@ section{
 
 .wrapper{
 	color:#000;
-	text-shadow:none;
 }
 
 .hero{
